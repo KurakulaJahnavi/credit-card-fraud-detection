@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CreditGuard | Credit Card Fraud Detection</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js for EDA charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ================= HEADER ================= -->
+
+        <header>
+            <div class="logo">
+                🛡️ CreditGuard
+            </div>
+
+            <div class="subtitle">
+                AI-Powered Credit Card Fraud Detection
+            </div>
+        </header>
+
+
+        <!-- ================= NAVIGATION ================= -->
+
+        <nav class="navigation">
+
+            <a href="#overview">Dataset Overview</a>
+
+            <a href="#eda">Exploratory Data Analysis</a>
+
+            <a href="#performance">Model Performance</a>
+
+            <a href="#detection">Fraud Detection</a>
+
+        </nav>
+
+
+        <!-- ================= DATASET OVERVIEW ================= -->
+
+        <main id="overview">
+
+            <div class="card">
+
+                <h1>Dataset Overview</h1>
+
+                <p class="description">
+                    Overview of the credit card transaction dataset used
+                    for training the fraud detection model.
+                </p>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <h3>Total Transactions</h3>
+                        <p>284,807</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>Total Columns</h3>
+                        <p>31</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>Input Features</h3>
+                        <p>30</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>Target Column</h3>
+                        <p>Class</p>
+                    </div>
+
+                </div>
+
+
+                <section>
+
+                    <h2>Dataset Features</h2>
+
+                    <div class="feature-list">
+
+                        <div>
+                            <strong>Time</strong>
+                            <span>Time elapsed since the first transaction.</span>
+                        </div>
+
+                        <div>
+                            <strong>V1 – V28</strong>
+                            <span>
+                                Anonymized numerical transaction features
+                                used by the machine learning model.
+                            </span>
+                        </div>
+
+                        <div>
+                            <strong>Amount</strong>
+                            <span>The transaction amount.</span>
+                        </div>
+
+                        <div>
+                            <strong>Class</strong>
+                            <span>
+                                Target variable: 0 = Normal, 1 = Fraud.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= EDA ================= -->
+
+        <main id="eda">
+
+            <div class="card">
+
+                <h1>Exploratory Data Analysis</h1>
+
+                <p class="description">
+                    Visual analysis of the transaction dataset to understand
+                    class imbalance and transaction patterns.
+                </p>
+
+
+                <div class="chart-grid">
+
+                    <div class="chart-card">
+
+                        <h2>Normal vs Fraud Transactions</h2>
+
+                        <canvas id="classChart"></canvas>
+
+                    </div>
+
+
+                    <div class="chart-card">
+
+                        <h2>Transaction Amount Distribution</h2>
+
+                        <canvas id="amountChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <section>
+
+                    <h2>Key Observation</h2>
+
+                    <p class="section-description">
+
+                        The dataset is highly imbalanced because fraudulent
+                        transactions represent only a very small portion
+                        of the total transactions.
+
+                    </p>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= MODEL PERFORMANCE ================= -->
+
+        <main id="performance">
+
+            <div class="card">
+
+                <h1>Model Performance</h1>
+
+                <p class="description">
+                    Evaluation of the trained fraud detection model.
+                </p>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <h3>Precision</h3>
+                        <p id="precisionMetric">--</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>Recall</h3>
+                        <p id="recallMetric">--</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>F1 Score</h3>
+                        <p id="f1Metric">--</p>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <h3>Average Precision</h3>
+                        <p id="apMetric">--</p>
+                    </div>
+
+                </div>
+
+
+                <section>
+
+                    <h2>Precision-Recall Curve</h2>
+
+                    <div class="chart-card">
+
+                        <canvas id="prChart"></canvas>
+
+                    </div>
+
+                </section>
+
+
+                <section>
+
+                    <h2>Why Precision-Recall?</h2>
+
+                    <p class="section-description">
+
+                        Fraud detection datasets are usually highly
+                        imbalanced, with fraudulent transactions being
+                        much less common than normal transactions.
+
+                        Therefore, Precision-Recall evaluation provides
+                        more useful information about the model's ability
+                        to identify fraudulent transactions than accuracy
+                        alone.
+
+                    </p>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= FRAUD DETECTION ================= -->
+
+        <main id="detection">
+
+            <div class="card">
+
+                <h1>Transaction Analysis</h1>
+
+                <p class="description">
+                    Enter the transaction details below to check whether
+                    the transaction is potentially fraudulent.
+                </p>
+
+
+                <!-- Basic Information -->
+
+                <section>
+
+                    <h2>Transaction Information</h2>
+
+                    <div class="input-grid">
+
+                        <div class="input-group">
+
+                            <label for="Time">
+                                Transaction Time
+                            </label>
+
+                            <input
+                                type="number"
+                                id="Time"
+                                placeholder="Enter transaction time"
+                                step="any"
+                            >
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="Amount">
+                                Amount
+                            </label>
+
+                            <input
+                                type="number"
+                                id="Amount"
+                                placeholder="Enter transaction amount"
+                                step="any"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Advanced Features -->
+
+                <section>
+
+                    <h2>Transaction Features</h2>
+
+                    <p class="section-description">
+                        Enter the anonymized transaction features used by
+                        the machine learning model.
+                    </p>
+
+
+                    <div class="input-grid">
+
+
+                        <div class="input-group">
+                            <label for="V1">V1</label>
+                            <input type="number" id="V1" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V2">V2</label>
+                            <input type="number" id="V2" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V3">V3</label>
+                            <input type="number" id="V3" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V4">V4</label>
+                            <input type="number" id="V4" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V5">V5</label>
+                            <input type="number" id="V5" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V6">V6</label>
+                            <input type="number" id="V6" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V7">V7</label>
+                            <input type="number" id="V7" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V8">V8</label>
+                            <input type="number" id="V8" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V9">V9</label>
+                            <input type="number" id="V9" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V10">V10</label>
+                            <input type="number" id="V10" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V11">V11</label>
+                            <input type="number" id="V11" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V12">V12</label>
+                            <input type="number" id="V12" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V13">V13</label>
+                            <input type="number" id="V13" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V14">V14</label>
+                            <input type="number" id="V14" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V15">V15</label>
+                            <input type="number" id="V15" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V16">V16</label>
+                            <input type="number" id="V16" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V17">V17</label>
+                            <input type="number" id="V17" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V18">V18</label>
+                            <input type="number" id="V18" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V19">V19</label>
+                            <input type="number" id="V19" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V20">V20</label>
+                            <input type="number" id="V20" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V21">V21</label>
+                            <input type="number" id="V21" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V22">V22</label>
+                            <input type="number" id="V22" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V23">V23</label>
+                            <input type="number" id="V23" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V24">V24</label>
+                            <input type="number" id="V24" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V25">V25</label>
+                            <input type="number" id="V25" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V26">V26</label>
+                            <input type="number" id="V26" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V27">V27</label>
+                            <input type="number" id="V27" step="any">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="V28">V28</label>
+                            <input type="number" id="V28" step="any">
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Prediction Button -->
+
+                <button id="predictButton">
+                    Analyze Transaction
+                </button>
+
+
+                <!-- Result -->
+
+                <div id="result" class="result hidden">
+
+                    <h2>Prediction Result</h2>
+
+                    <div id="prediction"></div>
+
+                    <div id="probability"></div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            CreditGuard • Machine Learning Fraud Detection
+
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
